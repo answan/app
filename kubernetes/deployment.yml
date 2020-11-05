@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: app
-  namespace: pp82
+  namespace: phone82
   labels:
     app: app
 spec:
