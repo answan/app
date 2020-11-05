@@ -58,36 +58,36 @@ public class PolicyHandler{
     }
 
     @StreamListener(KafkaProcessor.INPUT)
-    public void wheneverPromoCompleted_OrderStatus(@Payload PromoCompleted promoCompleted){
+    public void wheneverRewardCompleted_OrderStatus(@Payload RewardCompleted rewardCompleted){
 
-        if(promoCompleted.isMe()){
-            System.out.println("!!!!!!!!!!!!!!!!wheneverPromoCompleted_OrderStatus!!!!!!!!!!!!!!!!!!!!!!");
-            System.out.println(promoCompleted.getOrderId());
+        if(rewardCompleted.isMe()){
+            System.out.println("!!!!!!!!!!!!!!!!wheneverRewardCompleted_OrderStatus!!!!!!!!!!!!!!!!!!!!!!");
+            System.out.println(rewardCompleted.getOrderId());
 
-            if(orderRepository.findById(promoCompleted.getOrderId()) != null) {
-                Order order = orderRepository.findById(promoCompleted.getOrderId()).get();
-                order.setPoint(promoCompleted.getPoint());
+            if(orderRepository.findById(rewardCompleted.getOrderId()) != null) {
+                Order order = orderRepository.findById(rewardCompleted.getOrderId()).get();
+                order.setPoint(rewardCompleted.getPoint());
                 orderRepository.save(order);
             }
 
-            System.out.println("##### listener OrderStatus : " + promoCompleted.toJson());
+            System.out.println("##### listener OrderStatus : " + rewardCompleted.toJson());
         }
     }
 
     @StreamListener(KafkaProcessor.INPUT)
-    public void wheneverPromoCancelled_OrderStatus(@Payload PromoCancelled promoCancelled){
+    public void wheneverRewardCancelled_OrderStatus(@Payload RewardCancelled rewardCancelled){
 
-        if(promoCancelled.isMe()){
-            System.out.println("!!!!!!!!!!!!!!!!wheneverPromoCancelled_OrderStatus!!!!!!!!!!!!!!!!!!!!!!");
-            System.out.println(promoCancelled.getOrderId());
+        if(rewardCancelled.isMe()){
+            System.out.println("!!!!!!!!!!!!!!!!wheneverreward Cancelled_OrderStatus!!!!!!!!!!!!!!!!!!!!!!");
+            System.out.println(rewardCancelled.getOrderId());
 
-            if(orderRepository.findById(promoCancelled.getOrderId()) != null) {
-                Order order = orderRepository.findById(promoCancelled.getOrderId()).get();
-                order.setPoint(promoCancelled.getPoint());
+            if(orderRepository.findById(rewardCancelled.getOrderId()) != null) {
+                Order order = orderRepository.findById(rewardCancelled.getOrderId()).get();
+                order.setPoint(rewardCancelled.getPoint());
                 orderRepository.save(order);
             }
 
-            System.out.println("##### listener OrderStatus : " + promoCancelled.toJson());
+            System.out.println("##### listener OrderStatus : " + rewardCancelled.toJson());
         }
     }
 
